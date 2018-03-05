@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Notification Suppression</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding no-bounce>
+  <img src="assets/imgs/dvsa_logo.jpg" height="200" alt="dvsa-logo" class="dvsa-logo">
+  <div>
+    This is a sample app that demonstrates our approach to suppress notification. This app uses:
+    <ul>
+      <li>Autonomous Single App Mode</li>
+      <li>Lock Orientation</li>
+      <li>Insomnia</li>
+    </ul>
+  </div>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Autonomous Single App Mode</ion-label>
+      <ion-toggle [(ngModel)]="isASAMOn"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <p>Did succeed?: {{result}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-label>Is Autonomous Single App Mode Enabled? {{isASAMEnabled}}</ion-label>
+      <ion-toggle [(ngModel)]="isASAMEnabled"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>Lock to portrait orientation</ion-label>
+      <ion-toggle [(ngModel)]="isPortraitOrientation"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>Is insomnia enabled</ion-label>
+      <ion-toggle [(ngModel)]="isInsomniaEnabled"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <p>Did succeed?: {{enablingInsomniaDidSucceed}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-label item-start>Settings</ion-label>
+      <button ion-button item-end (click)="openDoNotDisturb()">Open Settings</button>
+    </ion-item>
+  </ion-list>
+</ion-content>
