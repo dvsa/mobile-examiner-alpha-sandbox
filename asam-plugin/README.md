@@ -1,5 +1,7 @@
 # Guided Access Cordova Plugin
+
 ======
+
 Cordova plugin that provide access to enable/disable Guided Access (iOS only feature)
 
 ## How to use it:
@@ -14,5 +16,6 @@ Cordova plugin that provide access to enable/disable Guided Access (iOS only fea
         // do sth with result 
       });
     });
-  }
+    }
   ```
+  
