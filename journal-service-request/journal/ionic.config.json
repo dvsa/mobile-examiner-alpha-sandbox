@@ -1,0 +1,8 @@
+{
+  "name": "journal",
+  "app_id": "c3d37ef6",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
