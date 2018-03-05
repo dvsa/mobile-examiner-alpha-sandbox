@@ -1,0 +1,8 @@
+{
+  "name": "adal",
+  "app_id": "c359041d",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

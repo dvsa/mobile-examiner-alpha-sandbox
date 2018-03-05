@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Ionic Blank
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <p>AD Testing</p>
+
+  <p>Hello {{ loggedInName }}</p>
+
+  <button ion-button (click)="login()">Login Test</button>
+  <button ion-button (click)="logout()">Logout</button>
+
+  <br />
+  <span>{{ otherData | json }}</span>
+</ion-content>
