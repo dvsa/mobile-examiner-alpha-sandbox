@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            DVSA Mobile Examiner
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <img width=350 src="assets/imgs/dvsa-logo.png" />
+    <button ion-button (click)='recordAudio();' color="dark">{{recordButtonText}}</button>
+    <button ion-button (click)='stopRecordingAudio();' color="dark">Stop recording</button>
+    <button ion-button (click)='playAudio();' disabled={{buttonDisabled}}>{{playButtonText}}</button>
+    <button ion-button (click)='deleteAudio();' disabled={{buttonDisabled}} color="danger">Delete recording</button>
+
+    <h3>File name: {{fileName}}</h3>
+    <h3>File length: {{fileLength}}</h3>
+    <h3>File size: {{fileSize}}</h3>
+</ion-content>
