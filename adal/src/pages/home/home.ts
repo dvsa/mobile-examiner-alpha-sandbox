@@ -1,4 +1,5 @@
 import { Component, NgZone } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'page-home',
@@ -8,12 +9,23 @@ export class HomePage {
   authority: string = "https://login.windows.net/common/oauth2/authorize";
   redirectUri: string = "http://mestest";
   resourceUri: string = "https://graph.windows.net";
-  clientId: string = "3754afb6-16de-4827-b0ff-6b32407b23a9";
+
+  clientId: string = "5cc3585a-bddc-45db-a58d-ada2ea6c4875";
+  graphApiVersion = "2013-11-08";
 
   loggedInName: string = "";
   otherData: string = "";
+  extraStuff: string = "";
+  group: string = "";
+  error: string = "";
 
-  constructor(private zone: NgZone) {
+  readonly MesExaminersGroupId = "6305a5ef-8462-46f6-9b03-0ecd1bcc8f64";
+  readonly MesLdtmGroupId = "db0ae1a1-83ce-44d5-abc2-e3642bddde7e";
+
+  constructor(
+    private http: HttpClient,
+    private zone: NgZone) {
+    this.group = "";      
   }
 
   login() {
@@ -49,6 +61,7 @@ export class HomePage {
               }, 
               (err) => {
                 console.log(err);
+                this.error = err;
               });
           });
       });
@@ -60,6 +73,17 @@ export class HomePage {
     const name = authResponse.userInfo.displayableId;
     this.loggedInName = name;
     this.otherData = authResponse.userInfo;
+    this.error = "";
+
+    this.getGroupData(authResponse).subscribe(
+      (results) => {
+        this.parseGroupName(results);
+      },
+      (err) => {
+        console.log(err);
+        this.error = err;
+        this.group = "No Group";
+      });
   }
 
 
@@ -72,8 +96,45 @@ export class HomePage {
 
     this.loggedInName = '';
     this.otherData = '';
+    this.group = "";    
+    this.error = "";      
     
     // Step2: For a complete logout (all things): make XmlHttpRequest (or open InAppBrowser instance) pointing to the sign out url.
     // https://login.microsoftonline.com/common/oauth2/logout 
+  }
+
+  getGroupData(authResult) {
+    var url = "https://graph.windows.net/me/checkMemberGroups?api-version=1.6";
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': 'Bearer ' + authResult.accessToken
+      })
+    };
+  
+    var body = {
+      "groupIds": [
+        this.MesExaminersGroupId,
+        this.MesLdtmGroupId
+      ]
+    };
+
+    return this.http.post(
+      url,
+      body,
+      httpOptions
+    );
+  }
+
+  parseGroupName(results) {
+    console.log(results);
+    if (results.value.includes(this.MesExaminersGroupId)) {
+      this.group = "Examiners Group";      
+    } else if (results.value.includes(this.MesLdtmGroupId)) {
+      this.group = "LDTM Group";      
+    } else {
+      this.group = "Unknown Group";
+    }
   }
 }

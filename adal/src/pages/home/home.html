@@ -9,11 +9,14 @@
 <ion-content padding>
   <p>AD Testing</p>
 
-  <p>Hello {{ loggedInName }}</p>
+  <p *ngIf="loggedInName">Hello {{ loggedInName }}</p>
+  <p *ngIf="group">{{ group }}</p>
 
   <button ion-button (click)="login()">Login Test</button>
   <button ion-button (click)="logout()">Logout</button>
 
+  <p class="color: red" *ngIf="error">{{ error | json }}</p>
+ 
   <br />
-  <span>{{ otherData | json }}</span>
+  <span *ngIf="otherData">{{ otherData | json }}</span>
 </ion-content>
