@@ -16,3 +16,6 @@ Cordova plugin that provide access to enable/disable Guided Access (iOS only fea
 
 ## Notification-Suppression-Demo
 Demo app that presents all features that team found out during tech investigation until 2.03.2018.
+
+## journal-data-extract
+Prototype replicating data from TARS using AWS DMS. 
