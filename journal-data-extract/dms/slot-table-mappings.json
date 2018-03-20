@@ -1,0 +1,71 @@
+{
+	"rules": [
+		{
+				"rule-type": "transformation",
+				"rule-id": "1",
+				"rule-name": "1",
+				"rule-action": "rename",
+				"rule-target": "schema",
+				"object-locator": {
+						"schema-name": "TARSUAT"
+				},
+				"value": "tarsuat1repl"
+		},
+		{
+			"rule-type": "selection",
+			"rule-id": "2",
+			"rule-name": "2",
+			"object-locator": {
+				"schema-name": "TARSUAT",
+				"table-name": "PROGRAMME"
+			},
+			"rule-action": "include",
+		  "filters": [{
+			  "filter-type": "source",
+			  "column-name": "PROGRAMME_DATE",
+			  "filter-conditions": [{
+				  "filter-operator": "between",
+					"start-value": "2017-08-07",
+ 				  "end-value": "2017-08-11"
+			    }]
+		  }]
+		},
+		{
+			"rule-type": "selection",
+			"rule-id": "3",
+			"rule-name": "3",
+			"object-locator": {
+				"schema-name": "TARSUAT",
+				"table-name": "PROGRAMME_SLOT"
+			},
+			"rule-action": "include",
+		  "filters": [{
+			  "filter-type": "source",
+			  "column-name": "PROGRAMME_DATE",
+			  "filter-conditions": [{
+				  "filter-operator": "between",
+					"start-value": "2017-08-07",
+ 				  "end-value": "2017-08-11"
+			    }]
+		  }]
+		},
+		{
+			"rule-type": "selection",
+			"rule-id": "4",
+			"rule-name": "4",
+			"object-locator": {
+				"schema-name": "TARSUAT",
+				"table-name": "BOOKING"
+			},
+			"rule-action": "include",
+			"filters": [{
+				"filter-type": "source",
+				"column-name": "STATE_CODE",
+				"filter-conditions": [{
+					"filter-operator": "eq",
+					"value": "1"
+					}]
+			}]
+		}
+	]
+}

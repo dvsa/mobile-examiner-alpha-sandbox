@@ -1,0 +1,93 @@
+{
+	"rules": [
+		{
+			"rule-type": "selection",
+			"rule-id": "1",
+			"rule-name": "1",
+			"object-locator": {
+				"schema-name": "TARSUAT",
+				"table-name": "EXAMINER"
+			},
+			"rule-action": "include"
+		},
+    {
+        "rule-type": "transformation",
+        "rule-id": "2",
+        "rule-name": "2",
+        "rule-action": "rename",
+        "rule-target": "schema",
+        "object-locator": {
+            "schema-name": "TARSUAT"
+        },
+        "value": "tarsuat1repl"
+    },
+    {
+			"rule-type": "selection",
+			"rule-id": "3",
+			"rule-name": "3",
+			"object-locator": {
+				"schema-name": "TARSUAT",
+				"table-name": "EXAMINER_STATUS"
+			},
+			"rule-action": "include"
+		},
+    {
+			"rule-type": "selection",
+			"rule-id": "4",
+			"rule-name": "4",
+			"object-locator": {
+				"schema-name": "TARSUAT",
+				"table-name": "INDIVIDUAL"
+			},
+			"rule-action": "include"
+		},
+    {
+			"rule-type": "selection",
+			"rule-id": "5",
+			"rule-name": "5",
+			"object-locator": {
+				"schema-name": "TARSUAT",
+				"table-name": "POSTING"
+			},
+			"rule-action": "include"
+		},
+    {
+			"rule-type": "selection",
+			"rule-id": "6",
+			"rule-name": "6",
+			"object-locator": {
+				"schema-name": "TARSUAT",
+				"table-name": "REF_DATA_ITEM_MASTER"
+			},
+			"rule-action": "include"
+		},
+    {
+			"rule-type": "selection",
+			"rule-id": "7",
+			"rule-name": "7",
+			"object-locator": {
+				"schema-name": "TARSUAT",
+				"table-name": "TEST_CENTRE"
+			},
+			"rule-action": "include"
+		},
+    {
+			"rule-type": "selection",
+			"rule-id": "8",
+			"rule-name": "8",
+			"object-locator": {
+				"schema-name": "TARSUAT",
+				"table-name": "TEST_CENTRE_NAME"
+			},
+			"rule-action": "include",
+		  "filters": [{
+			  "filter-type": "source",
+			  "column-name": "DISPLAY_ORDER",
+			  "filter-conditions": [{
+				  "filter-operator": "eq",
+				  "value": "1"
+			    }]
+		  }]
+		}
+	]
+}
