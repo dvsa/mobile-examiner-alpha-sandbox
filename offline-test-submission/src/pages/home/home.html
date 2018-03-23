@@ -8,6 +8,7 @@
 
 <ion-content padding>
   <p *ngIf="error">{{error}}</p>
+  <button (click)="saveTestToDB()">Send request</button>
   <ul>
     <li *ngFor="let timeStamp of timeStampsArr">
       {{timeStamp}}

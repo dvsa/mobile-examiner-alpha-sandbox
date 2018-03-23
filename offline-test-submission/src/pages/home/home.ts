@@ -9,7 +9,7 @@ import { Http } from '@angular/http';
 })
 export class HomePage {
 
-  timeStampsArr: string[];
+  timeStampsArr: string[] = [];
   error: string;
 
   constructor(
@@ -18,53 +18,54 @@ export class HomePage {
     public backgroundFetch: BackgroundFetch,
     public http: Http) {
     platform.ready().then(() => {
+      // RAW CORDOVA IMPLEMENTATION
+      // let BackgroundFetch = (<any>window).BackgroundFetch;
+
+      // // Your background-fetch handler.
+      // let fetchCallback = () => {
+      //   console.log('[js] BackgroundFetch event received');
+      //   this.saveTestToDB();
+      //   // Required: Signal completion of your task to native code
+      //   // If you fail to do this, the OS can terminate your app
+      //   // or assign battery-blame for consuming too much background-time
+      //   BackgroundFetch.finish();
+      // }
+      // let failureCallback = function (error) {
+      //   console.log('- BackgroundFetch failed', error);
+      // };
+
+      // BackgroundFetch.configure(fetchCallback, failureCallback, {
+      //   minimumFetchInterval: 15, // <-- default is 15
+      //   stopOnTerminate: false,   // <-- Android only
+      //   startOnBoot: true,        // <-- Android only
+      //   forceReload: true         // <-- Android only
+      // });
+
+      // IONIC NATIVE PLUGIN IMPLEMENTATION
       const config: BackgroundFetchConfig = {
         stopOnTerminate: false, // Set true to cease background-fetch from operating after user "closes" the app. Defaults to true.
       };
 
-      // RAW CORDOVA IMPLEMENTATION
-      let BackgroundFetch = (<any>window).BackgroundFetch;
+      backgroundFetch.configure(config)
+        .then(() => {
+          console.log('Background Fetch initialized');
+          const date = new Date();
+          console.log(this);
+          this.timeStampsArr.push(date.toUTCString());
+          this.saveTestToDB();
+          backgroundFetch.finish();
+        })
+        .catch(e => {
+          console.log('Error initializing background fetch', e);
+          this.error = e;
+        });
 
-      // Your background-fetch handler.
-      let fetchCallback = () => {
-        console.log('[js] BackgroundFetch event received');
-        this.saveTestToDB();
-        // Required: Signal completion of your task to native code
-        // If you fail to do this, the OS can terminate your app
-        // or assign battery-blame for consuming too much background-time
-        BackgroundFetch.finish();
-      }
-      let failureCallback = function (error) {
-        console.log('- BackgroundFetch failed', error);
-      };
-      BackgroundFetch.configure(fetchCallback, failureCallback, {
-        minimumFetchInterval: 15, // <-- default is 15
-        stopOnTerminate: false,   // <-- Android only
-        startOnBoot: true,        // <-- Android only
-        forceReload: true         // <-- Android only
-      });
-
-      // IONIC NATIVE PLUGIN IMPLEMENTATION
-      // backgroundFetch.configure(config)
-      //   .then(() => {
-      //     console.log('Background Fetch initialized');
-      //     const date = new Date();
-      //     this.timeStampsArr.push(date.toUTCString());
-      //     this.saveTestToDB();
-      //     backgroundFetch.finish();
-      //   })
-      //   .catch(e => {
-      //     console.log('Error initializing background fetch', e);
-      //     this.error = e;
-      //   });
-
-      // // Start the background-fetch API. Your callbackFn provided to #configure will be executed each time a background-fetch event occurs. NOTE the #configure method automatically calls #start. You do not have to call this method after you #configure the plugin
-      // backgroundFetch.start();
+      // Start the background-fetch API. Your callbackFn provided to #configure will be executed each time a background-fetch event occurs. NOTE the #configure method automatically calls #start. You do not have to call this method after you #configure the plugin
+      backgroundFetch.start();
     });
   }
 
   saveTestToDB() {
-
     let postData = JSON.stringify({
       candidateId: '123456789',
       faults: [
@@ -76,7 +77,6 @@ export class HomePage {
         }
       ]
     });
-
 
     this.http.post('', postData)
       .subscribe(
@@ -92,8 +92,5 @@ export class HomePage {
           console.log(err);
         }
       )
-
-
-
   }
 }
