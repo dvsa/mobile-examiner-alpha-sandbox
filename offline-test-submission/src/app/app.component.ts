@@ -4,7 +4,6 @@ import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 
 import { HomePage } from "../pages/home/home";
-import { Network } from "@ionic-native/network";
 @Component({
   templateUrl: "app.html"
 })
@@ -14,8 +13,7 @@ export class MyApp {
   constructor(
     platform: Platform,
     statusBar: StatusBar,
-    splashScreen: SplashScreen,
-    private network: Network
+    splashScreen: SplashScreen
   ) {
     platform.ready().then(() => {
       statusBar.styleDefault();

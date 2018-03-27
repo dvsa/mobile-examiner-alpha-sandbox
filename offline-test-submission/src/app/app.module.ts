@@ -7,6 +7,8 @@ import { StatusBar } from "@ionic-native/status-bar";
 import { MyApp } from "./app.component";
 import { HomePage } from "../pages/home/home";
 import { Network } from "@ionic-native/network";
+import { ConnectivityProvider } from '../providers/connectivity/connectivity';
+import { HTTP } from "@ionic-native/http";
 
 @NgModule({
   declarations: [MyApp, HomePage],
@@ -16,8 +18,10 @@ import { Network } from "@ionic-native/network";
   providers: [
     StatusBar,
     SplashScreen,
+    HTTP,
     Network,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    ConnectivityProvider
   ]
 })
 export class AppModule {}
