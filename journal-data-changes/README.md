@@ -18,7 +18,7 @@ npm test
 
 ## To Use
 ```
-npm start &lt;user&gt; &lt;password&gt; &lt;connection string&gt;*
+npm start <user> <password> <connection string>*
 ```
 
 (* *of the form: server:port/SID*)
