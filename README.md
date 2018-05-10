@@ -18,4 +18,7 @@ Cordova plugin that provide access to enable/disable Guided Access (iOS only fea
 Demo app that presents all features that team found out during tech investigation until 2.03.2018.
 
 ## journal-data-extract
-Prototype replicating data from TARS using AWS DMS. 
+Prototype replicating data from TARS using AWS DMS.
+
+## journal-data-changes
+CLI app that generates changes in journal data in a TARS database.

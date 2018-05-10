@@ -1,0 +1,55 @@
+{
+    "name": "journal-data-changes",
+    "version": "0.0.1",
+    "description": "DVSA Mobile Examiner Services - Generates journal data changes",
+    "dependencies": {
+        "oracledb": "^2.2.0",
+        "sleep": "^5.1.1",
+        "winston": "^2.4.2"
+    },
+    "devDependencies": {
+        "@types/jest": "^22.2.3",
+        "@types/node": "^8.10.13",
+        "@types/oracledb": "^1.11.34",
+        "@types/sleep": "0.0.7",
+        "@types/winston": "^2.3.9",
+        "hoek": "^5.0.3",
+        "jest": "^22.4.3",
+        "ts-jest": "^22.4.5",
+        "tslint": "^5.10.0",
+        "tslint-config-airbnb": "^5.8.0",
+        "tslint-config-prettier": "^1.10.0",
+        "typescript": "^2.8.3"
+    },
+    "scripts": {
+        "test": "jest --forceExit",
+        "start": "node build/server.js",
+        "clean": "rm -rf ./build",
+        "compile": "tsc && npm run lint",
+        "lint": "tslint -p . -c tslint.json --force"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dvsa/mobile-examiner-alpha-sandbox.git"
+    },
+    "jest": {
+        "transform": {
+            "^.+\\.tsx?$": "ts-jest"
+        },
+        "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+        "moduleFileExtensions": [
+            "ts",
+            "tsx",
+            "js",
+            "jsx",
+            "json",
+            "node"
+        ]
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/dvsa/mobile-examiner-alpha-sandbox/issues"
+    },
+    "homepage": "https://github.com/dvsa/mobile-examiner-alpha-sandbox#readme"
+}
