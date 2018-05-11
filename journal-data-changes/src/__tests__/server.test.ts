@@ -1,6 +1,6 @@
-//let greeter = require('../server');
+// let greeter = require('../server');
 
 test('dummy', () => {
-  //const person = { firstName: 'Fred', lastName: 'Bloggs' };
+  // const person = { firstName: 'Fred', lastName: 'Bloggs' };
   expect("test").toBe('test');
 });
