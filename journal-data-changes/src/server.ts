@@ -35,6 +35,13 @@ if (process.argv.length < 5) {
 const [username, password, connectionString] = process.argv.slice(2, 5);
 const repo = new repository(username, password, connectionString);
 
-logger.info('Running query...');
-repo.getExaminers();
-logger.info('Query returned...');
+// assume today is... (month starts from zero!)
+const activeDate = new Date(2017, 7, 14);
+logger.info('Loading all active examiners on %s...', activeDate.toDateString());
+repo.getActiveExaminers(activeDate)
+  .then((examiners) => {
+    logger.info("Found %d examiners", examiners.length)
+  })
+  .catch((err) => {
+    logger.error("Error reading from TARS: %s", err.message);
+  });

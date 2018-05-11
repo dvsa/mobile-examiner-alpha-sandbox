@@ -3,7 +3,7 @@
  */
 import { query } from './database';
 import { getLogger } from './util';
-const logger = getLogger('repository', 'debug'); 
+const logger = getLogger('repository', 'silly'); 
 
 export default class Repository {
 
@@ -19,19 +19,24 @@ export default class Repository {
 
     /**
      * Get all active posted examiners on a set day.
+     * @param activeDate    The date to consider
      */
-    getExaminers() {
-        logger.info('Running query...');
-        query(this.username, this.password, this.connectionString, `SELECT staff_number, grade_code FROM examiner`)
-            .then((result: Object[]) => {
-                logger.debug('Got result: %d rows', result.length);
-                result.forEach((row) => {
-                    logger.silly('staff_number: %s, grade_code: %s', row['STAFF_NUMBER'], row['GRADE_CODE']);
-                });
-            })
-            .catch((err) => {
-                logger.error('Got error: %s', err.message);
-            })
-        logger.info('Query returned...');
+    getActiveExaminers(activeDate: Date): Promise<Object[]> {
+        return query(this.username, this.password, this.connectionString, 
+`select e.individual_id, e.staff_number, active_posting.tc_id, e.grade_code
+ from examiner e, individual i,
+     (select p.individual_id as posting_indv_id, p.tc_id as tc_id
+      from posting p
+      where :active_date between trunc(p.start_date) and trunc(p.end_date)
+    ) active_posting
+where e.individual_id = i.individual_id
+and e.individual_id = active_posting.posting_indv_id(+)
+and nvl(e.grade_code, 'ZZZ') != 'DELE'
+and exists (
+      select end_date from examiner_status es
+      where es.individual_id = e.individual_id
+      and nvl(es.end_date, to_date('01/01/4000', 'DD/MM/YYYY')) > :active_date
+  )`,
+            { active_date: activeDate });
     }
 }

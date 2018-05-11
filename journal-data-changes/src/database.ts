@@ -11,9 +11,10 @@ const logger = getLogger('database', 'debug');
  * @param dbPassword        The database password
  * @param connectionString  The database connection string
  * @param sqlQuery          The SQL query to run
+ * @param bindValues        The bind variables values
  * @returns The results as an array of objects (each property is the column name in upper case)
  */
-export function query(username: string, dbPassword: string, connectionString: string, sqlQuery: string): Promise<Object[]> {
+export function query(username: string, dbPassword: string, connectionString: string, sqlQuery: string, bindValues: any): Promise<Object[]> {
   return new Promise((resolve, reject) => {
     let conn;
 
@@ -29,7 +30,7 @@ export function query(username: string, dbPassword: string, connectionString: st
         conn = connection;
 
         // return each row as an object rather than an array
-        return conn.execute(sqlQuery, [], { outFormat: oracledb.OBJECT });
+        return conn.execute(sqlQuery, bindValues, { outFormat: oracledb.OBJECT });
       })
       .then((result) => {
         logger.debug('query returned successfully');
