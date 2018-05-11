@@ -4,8 +4,8 @@
  * load for performance testing.
  */
 
-import { query } from './database';
-import { getLogger} from './util';
+import repository from './repository';
+import { getLogger } from './util';
 const logger = getLogger('server', 'debug');  
 // let sleep = require('sleep');
 
@@ -33,17 +33,8 @@ if (process.argv.length < 5) {
   process.exit(1);
 }
 const [username, password, connectionString] = process.argv.slice(2, 5);
-logger.info('Connecting to %s as %s', connectionString, username);
+const repo = new repository(username, password, connectionString);
 
 logger.info('Running query...');
-query(username, password, connectionString, `SELECT staff_number, grade_code FROM examiner`)
-  .then((result: Object[]) => {
-    logger.debug('Got result: %d rows', result.length);
-    result.forEach((row) => {
-      logger.silly('staff_number: %s, grade_code: %s', row['STAFF_NUMBER'], row['GRADE_CODE']);
-    });
-  })
-  .catch((err) => {
-    logger.error('Got error: %s', err.message);
-  })
+repo.getExaminers();
 logger.info('Query returned...');
