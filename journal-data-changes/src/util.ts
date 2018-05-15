@@ -23,3 +23,14 @@ export function getLogger(name: string, logLevel: string): winston.LoggerInstanc
 
     return winston.loggers.get(name);
 }
+
+/**
+ * Debug an array of objects.
+ * @param logger    The logger to use
+ * @param objects   The array of objects to log
+ */
+export function debugArrayOfObjects(logger: winston.LoggerInstance, objects: Object[]): void {
+    objects.forEach((object) => {
+        logger.debug("%s", JSON.stringify(object));
+    });
+}

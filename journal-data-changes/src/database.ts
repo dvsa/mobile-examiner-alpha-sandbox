@@ -51,3 +51,17 @@ export function query(username: string, dbPassword: string, connectionString: st
       });
   });
 }
+
+/**
+ * Generates a dynamic length in clause.
+ * @param objects     The number of objects to use
+ * @return The SQL in clause, of the form ":0, :1, :2"
+ */
+export function generateInClause(objects: Object[]): string {
+  const length = (objects == null) ? 0 : objects.length;
+  let clause = "";
+  for (let i = 0; i < length; i += 1) {
+    clause += ((i > 0) ? ", " : "") + ":" + i;
+  }
+  return clause;
+}

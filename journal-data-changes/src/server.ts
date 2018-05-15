@@ -5,7 +5,7 @@
  */
 
 import repository from './repository';
-import { getLogger } from './util';
+import { getLogger, debugArrayOfObjects } from './util';
 const logger = getLogger('server', 'debug');  
 // let sleep = require('sleep');
 
@@ -37,10 +37,17 @@ const repo = new repository(username, password, connectionString);
 
 // assume today is... (month starts from zero!)
 const activeDate = new Date(2017, 7, 14);
+
 logger.info('Loading all active examiners on %s...', activeDate.toDateString());
 repo.getActiveExaminers(activeDate)
   .then((examiners) => {
     logger.info("Found %d examiners", examiners.length)
+    logger.info("Looking for bookings for 50 examiners...");
+    repo.getBookings(activeDate, repo.getExaminerSubset(examiners, 50))
+      .then((bookings) => {
+        logger.info("Found %d bookings", bookings.length);
+        debugArrayOfObjects(logger, bookings);
+      });
   })
   .catch((err) => {
     logger.error("Error reading from TARS: %s", err.message);
